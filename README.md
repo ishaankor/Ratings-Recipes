@@ -14,7 +14,7 @@ The relevant columns in **RAW_recipes.csv**:
 | 'nutrition' | Nutrition information in the form [calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]; PDV stands for “percentage of daily value” |
 | 'n_steps'   | Number of steps in recipe                                                                                                                                                                         |
 | 'n_ingredients' | The number of ingredients in each recipe
-                          |
+                          
 
 Here are why these columns are important:
 - '**name**': The name of the recipe -- without the name, how could we classify recipes!
@@ -34,12 +34,10 @@ The relevant columns in **RAW_interactions.csv**:
 |-------------|--------------|
 | 'recipe_id' | Recipe ID    |
 | 'rating'    | Rating given |
-| 'review'    | Review text  |
 
 Here are why these columns are important:
 - '**recipe_id**': The ID of each recipe so that we can merge with the 'RAW_recipe.csv' dataset!
 - '**rating**': The ratings of each recipe so that we can see how well people like it.
-- '**review**': The review for each recipe in text.
 
 In total, there are about **731927** rows and **5** columns in this dataset! By analyzing both datasets, we'll find answers to not only mine but some other ones as well!
 
@@ -52,6 +50,8 @@ In total, there are about **731927** rows and **5** columns in this dataset! By 
 |  2 | 412 broccoli casserole               | 306168 |        40 |         6 |               9 |        5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 |
 |  3 | millionaire pound cake               | 286009 |       120 |         7 |               7 |        5 |          878.3 |                63 |           326 |             13 |              20 |                   123 |                    39 |
 |  4 | 2000 meatloaf                        | 475785 |        90 |        17 |              13 |        5 |          267   |                30 |            12 |             12 |              29 |                    48 |                     2 |
+
+Cleaning up the dataset was pretty straightforward; I filled all the missing values in 'rating' and also split some data up into their own seperate columns. I first started by merging the **RAW_interactions.csv** with the **RAW_recipes.csv** where the `rating` column will join the other factors that I need to analyze. I then replaced all the missing values with `np.NaN` in order to clean the data up and give us a true analysis of the dataset. After that, I grouped by the 'recipe' column and extracted every recipe's ratings in order to change them with the average of their ratings. To get it into my merged dataset, I then left merged the average ratings with the bigger merged file based on the 'id' column and then I split up 'nutrition' column into their own seperate columns and the right datatype. I made a DataFrame with the columns that contains all the proper nutrition information that was provided ([calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), and carbohydrates (PDV)]) and then set the rows to be the values in the list of 'nutrition'. I finished up the data generating process by merging this new created DataFrame with the most updated merged DataFrame and then dropping all the unecessary columns like ['contributor_id', 'submitted', 'tags', 'nutrition', 'steps', 'description', 'ingredients'] since I'm not particularly interested in these. 
 
 ### Assessment of Missingness
 
