@@ -29,7 +29,7 @@ Here are why these columns are important:
 - '**ingredients**': The different ingredients for recipe in text.
 - '**n_ingredients**': The number of ingredients for recipe.
 
-In total, there are about **83782** rows and **12** columns in this dataset!
+In total, there are about **83782** rows and **12** columns in this dataset! By analyzing both datasets, we'll find answers to not only mine but some other ones as well!
 
 
 The relevant columns in **RAW_interactions.csv**:
