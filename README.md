@@ -1,4 +1,4 @@
-# Ratings-Recipes
+# Ratings & Recipes: Food Clash-Off!
 
 ### Introduction
 
