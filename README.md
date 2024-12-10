@@ -92,10 +92,21 @@ The bivariate graph illustrates the relationship between "Minutes" on the y-axis
 
 ## Hypothesis Testing
 
+<hr>
+
 ## Framing a Prediction Problem
+
+<hr>
 
 ## Baseline Model
 
+<hr>
+
 ## Final Model
 
+<hr>
+
 ## Fairness Analysis
+
+<hr>
+
