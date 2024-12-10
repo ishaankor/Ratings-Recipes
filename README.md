@@ -45,8 +45,6 @@ In total, there are about **731927** rows and **5** columns in this dataset! By 
 
 ### Data Cleaning and Exploratory Data Analysis
 
-<table width="50%">
-
 |    | name                                 |     id |   minutes |   n_steps |   n_ingredients |   rating |   calories (#) |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |
 |---:|:-------------------------------------|-------:|----------:|----------:|----------------:|---------:|---------------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|
 |  0 | 1 brownies in the world    best ever | 333281 |        40 |        10 |               9 |        4 |          138.4 |                10 |            50 |              3 |               3 |                    19 |                     6 |
@@ -54,8 +52,6 @@ In total, there are about **731927** rows and **5** columns in this dataset! By 
 |  2 | 412 broccoli casserole               | 306168 |        40 |         6 |               9 |        5 |          194.8 |                20 |             6 |             32 |              22 |                    36 |                     3 |
 |  3 | millionaire pound cake               | 286009 |       120 |         7 |               7 |        5 |          878.3 |                63 |           326 |             13 |              20 |                   123 |                    39 |
 |  4 | 2000 meatloaf                        | 475785 |        90 |        17 |              13 |        5 |          267   |                30 |            12 |             12 |              29 |                    48 |                     2 |
-
-</table>
 
 ### Assessment of Missingness
 
