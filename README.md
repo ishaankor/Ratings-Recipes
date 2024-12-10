@@ -80,15 +80,26 @@ The graph illustrates the distribution of cooking times measured in minutes. The
   frameborder="0"
 ></iframe>
 
-The bivariate graph illustrates the relationship between "Minutes" on the y-axis and "Rounded Rating" on the x-axis. The graph indicates a downward trend, suggesting that as the rounded rating increases, the average preparation time tends to decrease. This could imply that highly-rated recipes are generally quicker to prepare, possibly due to their simplicity or popularity. Clusters around lower ratings show wider variability in cooking times, indicating inconsistency in preparation effort. The dense concentration of points near the upper-middle section suggests a common preparation duration regardless of rating. Outliers appear at both extremes, representing unusually quick or lengthy preparations for certain ratings. The negative slope suggests an inverse relationship, meaning users might prefer recipes that balance quality and time efficiency. Understanding this trend can help optimize recipe recommendations based on user preferences for quick and highly-rated meals. The linear pattern suggests potential predictive modeling applications. The visible spread highlights the need for more granular analysis by recipe type or complexity. Lastly, the graph effectively visualizes how perceived quality (rating) relates to preparation effort (minutes).
+The bivariate graph illustrates the relationship between "Minutes" on the y-axis and "Rounded Rating" on the x-axis. The graph indicates a downward trend, suggesting that as the rounded rating increases, the average preparation time tends to decrease. This could imply that highly-rated recipes are generally quicker to prepare, possibly due to their simplicity or popularity. Clusters around lower ratings show wider variability in cooking times, indicating inconsistency in preparation effort. The dense concentration of points near the upper-middle section suggests a common preparation duration regardless of rating. Outliers appear at both extremes, representing unusually quick or lengthy preparations for certain ratings. The overall trend suggests that higher ratings are associated with longer times, though there is considerable spread within each rating group. As for The negative slope suggests an inverse relationship, meaning users might prefer recipes that balance quality and time efficiency. Understanding this trend can help optimize recipe recommendations based on user preferences for quick and highly-rated meals. The linear pattern suggests potential predictive modeling applications. The visible spread highlights the need for more granular analysis by recipe type or complexity. Lastly, the graph effectively visualizes how perceived quality (rating) relates to preparation effort (minutes).
 
 ### &#8594; Interesting Aggregates:
 
+| name                                 |   (40, 6, 9, '194.8') |   (40, 10, 9, '138.4') |   (45, 12, 11, '595.1') |   (90, 17, 13, '267.0') |   (120, 7, 7, '878.3') |
+|:-------------------------------------|----------------------:|-----------------------:|------------------------:|------------------------:|-----------------------:|
+| 1 brownies in the world    best ever |                   nan |                      4 |                     nan |                     nan |                    nan |
+| 1 in canada chocolate chip cookies   |                   nan |                    nan |                       5 |                     nan |                    nan |
+| 2000 meatloaf                        |                   nan |                    nan |                     nan |                       5 |                    nan |
+| 412 broccoli casserole               |                     5 |                    nan |                     nan |                     nan |                    nan |
+| millionaire pound cake               |                   nan |                    nan |                     nan |                     nan |                      5 |
 
 
 ## Assessment of Missingness
 
 <hr>
+
+### &#8594; NMAR Analysis:
+
+### &#8594; Missingness Dependency:
 
 ## Hypothesis Testing
 
