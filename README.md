@@ -68,6 +68,9 @@ Cleaning up the dataset was pretty straightforward; I filled all the missing val
   frameborder="0"
 ></iframe>
 
+The graph illustrates the distribution of cooking times measured in minutes. The distribution appears to be right-skewed, with most values concentrated in the lower range, indicating that shorter cooking times are more common. A peak around common values suggests a central tendency, possibly reflecting typical meal preparation durations. The long tail toward the right highlights a few instances of extremely long cooking times, which could be outliers or special cases like slow-cooked recipes. This skewness suggests that the mean cooking time might be higher than the median. Understanding this trend could be helpful in planning meal preparation or designing recipe categories based on average cooking times.
+
+
 ### &#8594; Bivariate Analysis:
 
 <iframe
@@ -76,6 +79,8 @@ Cleaning up the dataset was pretty straightforward; I filled all the missing val
   height="600"
   frameborder="0"
 ></iframe>
+
+The bivariate graph illustrates the relationship between "Minutes" on the y-axis and "Rounded Rating" on the x-axis. The graph indicates a downward trend, suggesting that as the rounded rating increases, the average preparation time tends to decrease. This could imply that highly-rated recipes are generally quicker to prepare, possibly due to their simplicity or popularity. Clusters around lower ratings show wider variability in cooking times, indicating inconsistency in preparation effort. The dense concentration of points near the upper-middle section suggests a common preparation duration regardless of rating. Outliers appear at both extremes, representing unusually quick or lengthy preparations for certain ratings. The negative slope suggests an inverse relationship, meaning users might prefer recipes that balance quality and time efficiency. Understanding this trend can help optimize recipe recommendations based on user preferences for quick and highly-rated meals. The linear pattern suggests potential predictive modeling applications. The visible spread highlights the need for more granular analysis by recipe type or complexity. Lastly, the graph effectively visualizes how perceived quality (rating) relates to preparation effort (minutes).
 
 ## Assessment of Missingness
 
