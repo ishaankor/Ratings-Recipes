@@ -1,6 +1,6 @@
 # Ratings & Recipes: Food Clash-Off!
 
-### Introduction
+## Introduction
 
 Being the big foodie that I am, I love trying various food and enjoying new cuisines! From my mother's food to American food, I've seen how food differs from culture to culture -- it's one of the most fun experiences I'll always treasure. When I saw how Icould analyze data about food in many ways, I immediately knew that I was entering a flavorful world! I went to look into the dataset and I found that there are ***so*** many factors to consider when determining how ratings/cost are calculated. The further I looked into the dataset and each recipe's ratings, I found that cooking times are influential to how well a recipe truly is but I wasn't fully sure. The question that I researched furthered into is: "**Do characteristics (e.g. minutes) lead to highly-rated recipes (e.g., rating >= 4.0)?**" Understanding the answer to this question will make us care about the recipes in various perspectives. For example, from the mind of home cooks and recipe developers, they might want to take the findings from this study so that they can prioritize specific factors (e.g., fewer steps or ingredients) to make appealing recipes. There's also the food platforms like food.com who publish recipes that might be tailored to specific user preferences, boosting their user engagement as a result. Before diving deeper into the analysis, let's breakdown the various components of the dataset:
 
@@ -41,7 +41,9 @@ Here are why these columns are important:
 
 In total, there are about **731927** rows and **5** columns in this dataset! By analyzing both datasets, we'll find answers to not only mine but some other ones as well!
 
-### Data Cleaning and Exploratory Data Analysis
+## Data Cleaning and Exploratory Data Analysis
+
+### &#8594; Data Cleaning:
 
 |    | name                                 |     id |   minutes |   n_steps |   n_ingredients |   rating |   calories (#) |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |
 |---:|:-------------------------------------|-------:|----------:|----------:|----------------:|---------:|---------------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|
@@ -53,6 +55,8 @@ In total, there are about **731927** rows and **5** columns in this dataset! By 
 
 Cleaning up the dataset was pretty straightforward; I filled all the missing values in 'rating' and also split some data up into their own seperate columns. I first started by merging the **RAW_interactions.csv** with the **RAW_recipes.csv** where the `rating` column will join the other factors that I need to analyze. I then replaced all the missing values with `np.NaN` in order to clean the data up and give us a true analysis of the dataset. After that, I grouped by the 'recipe' column and extracted every recipe's ratings in order to change them with the average of their ratings. To get it into my merged dataset, I then left merged the average ratings with the bigger merged file based on the 'id' column and then I split up 'nutrition' column into their own seperate columns and the right datatype. I made a DataFrame with the columns that contains all the proper nutrition information that was provided (`[calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), and carbohydrates (PDV)]`) and then set the rows to be the values in the list of 'nutrition'. I finished up the data generating process by merging this new created DataFrame with the most updated merged DataFrame and then dropping all the unnecessary columns like `['contributor_id', 'submitted', 'tags', 'nutrition', 'steps', 'description', 'ingredients']` since I'm not particularly interested in these. 
 
+### &#8594; Univariate Analysis:
+
 <iframe
   src="assets/univariate_graph_1.html"
   width="800"
@@ -60,14 +64,23 @@ Cleaning up the dataset was pretty straightforward; I filled all the missing val
   frameborder="0"
 ></iframe>
 
-### Assessment of Missingness
+### &#8594; Bivariate Analysis:
 
-### Hypothesis Testing
+<iframe
+  src="assets/bivariate_graph_1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
-### Framing a Prediction Problem
+## Assessment of Missingness
 
-### Baseline Model
+## Hypothesis Testing
 
-### Final Model
+## Framing a Prediction Problem
 
-### Fairness Analysis
+## Baseline Model
+
+## Final Model
+
+## Fairness Analysis
