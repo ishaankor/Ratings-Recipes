@@ -29,8 +29,7 @@ Here are why these columns are important:
 - '**ingredients**': The different ingredients for recipe in text.
 - '**n_ingredients**': The number of ingredients for recipe.
 
-In total, there are about **83782** rows and **12** columns in this dataset! By analyzing both datasets, we'll find answers to not only mine but some other ones as well!
-
+In total, there are about **83782** rows and **12** columns in this dataset! 
 
 The relevant columns in **RAW_interactions.csv**:
 
@@ -45,7 +44,7 @@ Here are why these columns are important:
 - '**rating**': The ratings of each recipe so that we can see how well people like it.
 - '**review**': The review for each recipe in text.
 
-In total, there are about **731927** rows and **5** columns in this dataset!
+In total, there are about **731927** rows and **5** columns in this dataset! By analyzing both datasets, we'll find answers to not only mine but some other ones as well!
 
 ### Data Cleaning and Exploratory Data Analysis
 
