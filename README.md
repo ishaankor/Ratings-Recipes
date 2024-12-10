@@ -100,7 +100,36 @@ In this pivot table, I wanted to see the general average of ratings given `'n_st
 
 ### &#8594; NMAR Analysis:
 
+Based on the analysis of the dataset, I believe the `'rating'` column is a strong candidate for being Not Missing At Random (NMAR).
+
+Reasoning:
+User Motivation: The missingness in rating could depend on user behavior, which is unobserved in the dataset. For example:
+
+Users might be less likely to leave ratings if they had a negative experience with a recipe but don't want to share that feedback publicly.
+Alternatively, users might only rate recipes they really liked or disliked, skipping neutral experiences.
+Selection Bias: If the dataset primarily contains highly rated recipes, recipes with poor performance might be missing due to being unpublished or underrepresented. This bias would be invisible within the dataset.
+
+Additional Data Needed:
+To determine if the missingness is MAR (Missing At Random) instead, the following data would be helpful:
+
+User Activity Logs: Including data on how often users view recipes without rating them.
+Time Stamps: Showing when recipes were published versus when interactions occurred, which could reveal whether newer recipes are more likely to have missing ratings.
+Platform Context: Knowing whether the platform prompted users to leave ratings after trying recipes could clarify if missingness was due to external factors (MAR).
+Without this external, unobserved information, it is reasonable to conclude that the rating column is likely NMAR, driven by user behavior and decision-making processes that are not captured in the current dataset.
+
 ### &#8594; Missingness Dependency:
+
+### **Results and Interpretation of Missingness Permutation Tests**
+
+The missingness permutation tests were conducted to evaluate whether the missingness of the `rating` column is dependent on specific features of the dataset, such as `sodium (PDV)` and `calories (#)`.
+
+For **calories (#)**, the observed test statistic (absolute difference in means between missing and non-missing groups) was **53.83**. A permutation test was performed by randomly shuffling the `missing_indicator` labels 1,000 times to create a null distribution of test statistics, assuming no relationship between `rating` missingness and `calories (#)`. The resulting p-value was **0.0**, indicating that none of the permuted test statistics were as extreme as the observed statistic. This provides strong evidence to reject the null hypothesis, supporting the conclusion that the missingness of `rating` is **dependent** on `calories (#)`.
+
+For **sodium (PDV)**, the observed test statistic was **1.44**, and the p-value was **0.502**, indicating that the observed difference in means between the missing and non-missing groups is consistent with the null hypothesis. The histogram of permuted test statistics showed that the observed statistic lies near the center of the null distribution, further supporting the conclusion that the missingness of `rating` is **independent** of `sodium (PDV)`.
+
+These findings were visualized using density plots. For `calories (#)`, the histogram shows the distribution of permuted test statistics under the null hypothesis, centered around zero, with the observed statistic (red dashed line) falling far outside the range of the null distribution. In contrast, the histogram for `sodium (PDV)` displays the observed statistic within the range of the permuted test statistics, consistent with the null hypothesis of independence.
+
+In conclusion, the missingness of `rating` is **dependent** on `calories (#)` but appears to be **independent** of `sodium (PDV)`. These results suggest that calorie levels may influence whether a rating is missing, while sodium levels do not. This dependency should be considered when analyzing the data further, particularly for features like calories that could introduce bias or impact downstream analysis.
 
 ## Hypothesis Testing
 
@@ -110,15 +139,72 @@ In this pivot table, I wanted to see the general average of ratings given `'n_st
 
 <hr>
 
+**Prediction Goal:**  
+Predict whether a recipe will receive a high rating (≥ 4.0) based on its features such as:
+- Cooking time (`minutes`),
+- Number of ingredients (`n_ingredients`),
+- Number of steps (`n_steps`),
+- Nutrition metrics (e.g., `calories`).
+
+This aligns with understanding what makes a recipe appealing to users, allowing us to identify which factors most influence recipe ratings.
+
+---
+
+### Steps for Prediction:
+1. **Define the Target:**
+   - Create a binary target variable, `high_rating`, where:
+     - `1` if `rating >= 4.0`
+     - `0` if `rating < 4.0`.
+
+2. **Features for Prediction:**
+   - Cooking time (`minutes`),
+   - Number of ingredients (`n_ingredients`),
+   - Number of steps (`n_steps`),
+   - Nutrition features (`calories`).
+
+3. **Prediction Approach:**
+   - Train a baseline model (e.g., logistic regression or random forest) using these features to predict the `high_rating` target.
+
+4. **Evaluation Metrics:**
+   - Use metrics such as accuracy, precision, recall, and F1-score to evaluate the model.
+
+---
+
+### Example Application:
+This prediction problem is useful for:
+- Recipe creators who want to design recipes likely to receive high ratings.
+- Platforms recommending recipes to users based on historical preferences.
+
 ## Baseline Model
 
 <hr>
+
+The model used for this prediction task includes two quantitative features: `minutes` (the total cooking time for a recipe) and `n_ingredients` (the number of ingredients used). Both features are continuous/discrete and required no special encoding. Numerical features were standardized using `StandardScaler` to ensure they were on the same scale, which is critical for optimal performance. No categorical or ordinal features were included in the model.
+
+The model itself is a Random Forest Classifier, a robust, non-linear classification model that is well-suited for binary tasks like this one. The performance metrics indicate strong overall performance, with an accuracy of **90.02%**. The model performs exceptionally well in predicting high ratings (`1`), achieving a precision of **0.90**, recall of **1.00**, and an F1-score of **0.95** for this class. However, the performance for low ratings (`0`) is poor, with a precision of **0.13**, recall of **0.00**, and an F1-score of **0.01**. This disparity likely arises from the significant class imbalance in the dataset, where high ratings are much more prevalent than low ratings.
+
+The weighted F1-score of **0.86** indicates strong overall performance, but the macro-average F1-score of **0.48** highlights the model's struggle to generalize to both classes. While the model is very effective at predicting high ratings, it fails to identify low ratings effectively. This suggests that the model is biased towards the majority class (`1`), which is common in imbalanced datasets. Despite this limitation, the model is considered "good" for predicting high ratings, which aligns with the primary objective of the task. To improve its performance for the minority class (`0`), techniques such as resampling (e.g., oversampling low ratings or undersampling high ratings), adjusting class weights in the Random Forest Classifier, or exploring additional features could be considered. These adjustments would enhance the model's ability to generalize to unseen data while maintaining its strong predictive power for high ratings.
 
 ## Final Model
 
 <hr>
 
+To improve the prediction task, two additional features were engineered and added to the model: `log_minutes` and `ingredients_steps_ratio`. The `log_minutes` feature is a log-transformed version of the original `minutes` column. This transformation helps reduce the skewness of the `minutes` distribution, which is often highly right-skewed due to recipes with extremely long cooking times. By applying a log transformation, the feature becomes more normally distributed, making it more suitable for machine learning models and allowing the algorithm to better differentiate between recipes with moderate and long cooking times. The `ingredients_steps_ratio` is another engineered feature, calculated as the ratio of the number of ingredients to the number of steps (plus one to avoid division by zero). This feature captures the relationship between recipe complexity (number of steps) and the richness of the recipe (number of ingredients). It provides insight into whether recipes with a high ingredient-to-step ratio, indicating simpler recipes, are more likely to receive high ratings. These features align well with the data generation process because they directly address the complexity and preparation characteristics of a recipe, which are key factors influencing user ratings.
+
+The chosen modeling algorithm was a Random Forest Classifier, which is well-suited for this task due to its ability to capture non-linear relationships and handle interactions between features. Hyperparameter tuning was conducted using GridSearchCV, a systematic approach to searching for the best combination of hyperparameters. The parameter grid included options for the number of estimators (`n_estimators`), the maximum depth of trees (`max_depth`), and the minimum number of samples required to split a node (`min_samples_split`). The best-performing hyperparameters were found to be `n_estimators=100`, `max_depth=10`, and `min_samples_split=10`. These parameters suggest that a moderately deep tree with more controlled splits helped balance model complexity and generalization, resulting in better performance.
+
+The Final Model’s performance, with an accuracy of **90.25%**, represents a slight improvement over the Baseline Model’s accuracy of **90.02%**. While the accuracy improvement appears marginal, the Final Model benefits from a more robust set of features and optimized hyperparameters. Additionally, the inclusion of engineered features provides a deeper understanding of the factors influencing recipe ratings, aligning better with the underlying data generation process. This makes the Final Model not only more accurate but also better aligned with the practical aspects of predicting user preferences.
+
 ## Fairness Analysis
 
 <hr>
 
+The fairness analysis of the final model was conducted by dividing the test set into two groups based on the feature `minutes`, representing the cooking time required for recipes. Group X consisted of recipes with cooking times less than or equal to the median value of `minutes`, while Group Y included recipes with cooking times greater than the median. This grouping was selected because cooking time is a critical characteristic that could affect how well the model predicts high ratings.
+
+The evaluation metric used for this fairness analysis was **precision**, which measures the proportion of correctly predicted high-rated recipes out of all recipes predicted as high-rated. Precision was chosen because it reflects how reliably the model identifies high-rated recipes, an essential consideration in this classification task.
+
+The null hypothesis (H₀) assumed that the model’s precision is equal for both Group X and Group Y, with any observed differences due to random chance. The alternative hypothesis (Hₐ) proposed that the model’s precision differs between the two groups, indicating potential unfairness. The test statistic used was the absolute difference in precision between the two groups. A standard significance level of **α = 0.05** was chosen, meaning that if the p-value fell below this threshold, the null hypothesis would be rejected.
+
+The results revealed an **observed precision difference** of **0.0169** between the two groups, with a **p-value** of **0.001**. Since the p-value is much lower than the significance level of 0.05, the null hypothesis was rejected, providing strong evidence that the observed difference in precision is statistically significant and unlikely to be due to random chance.
+
+In conclusion, the fairness analysis indicates that the model's performance differs significantly between recipes with short and long cooking times. This result suggests that the model demonstrates potential bias and may require fairness-aware adjustments, such as dataset rebalancing or more advanced fairness-oriented algorithms, to improve its performance across both groups.
