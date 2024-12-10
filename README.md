@@ -26,6 +26,8 @@ Here are why these columns are important:
 - '**nutrition**': The nutrition information that is connected to each recipe.
 - '**n_steps**': The number of steps in every recipe.
 - '**steps**': The steps for recipe in text.
+- '**ingredients**': The different ingredients for recipe in text.
+- '**n_ingredients**': The number of ingredients for recipe.
 
 In total, there are about **83782** rows and **12** columns in this dataset!
 
