@@ -63,8 +63,8 @@ Cleaning up the dataset was pretty straightforward; I filled all the missing val
 
 <iframe
   src="assets/univariate_1_graph.html"
-  width="800"
-  height="600"
+  width="600"
+  height="500"
   frameborder="0"
 ></iframe>
 
