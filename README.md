@@ -100,24 +100,11 @@ In this pivot table, I wanted to see the general average of ratings given `'n_st
 
 ### &#8594; NMAR Analysis:
 
-Based on the analysis of the dataset, I believe the `'rating'` column is a strong candidate for being Not Missing At Random (NMAR).
-
-Reasoning:
-User Motivation: The missingness in rating could depend on user behavior, which is unobserved in the dataset. For example:
-
-Users might be less likely to leave ratings if they had a negative experience with a recipe but don't want to share that feedback publicly.
-Alternatively, users might only rate recipes they really liked or disliked, skipping neutral experiences.
-Selection Bias: If the dataset primarily contains highly rated recipes, recipes with poor performance might be missing due to being unpublished or underrepresented. This bias would be invisible within the dataset.
-
-Additional Data Needed:
-To determine if the missingness is MAR (Missing At Random) instead, the following data would be helpful:
-
-User Activity Logs: Including data on how often users view recipes without rating them.
-Time Stamps: Showing when recipes were published versus when interactions occurred, which could reveal whether newer recipes are more likely to have missing ratings.
-Platform Context: Knowing whether the platform prompted users to leave ratings after trying recipes could clarify if missingness was due to external factors (MAR).
-Without this external, unobserved information, it is reasonable to conclude that the rating column is likely NMAR, driven by user behavior and decision-making processes that are not captured in the current dataset.
+Based on the analysis of the dataset, I believe the `'rating'` column is a strong candidate for being Not Missing At Random (NMAR). I think that it is NMAR for multiple reasons such as users might be less likely to leave ratings if they had a negative experience with a recipe but don't want to share that feedback publicly (I'm a victim of this, admittedly). On another hand, users might only rate recipes they really liked or disliked, skipping neutral experiences. There's also the case where if the dataset primarily contains highly rated recipes, recipes with poor performance might be missing due to being unpublished or underrepresented. If we wanted to make the `rating` column MAR, additional info such as how often users view recipes without rating them or even showing when recipes were published versus when interactions occurred (this could reveal whether newer recipes are more likely to have missing ratings!).
 
 ### &#8594; Missingness Dependency:
+
+Given that I think that `rating` column is NMAR, I need to conduct several missingness permutation tests and evaluate whether the missingness of the `rating` column is dependent on specific features of the dataset. To pick the right columns, I thought that the `sodium (PDV)` column shouldn't influence whether `rating` is missing or not while `calories (#)` should as it might make people not leave a rating if a recipe isn't worth the calories. As a result, I tested if `sodium (PDV)` is independent of `rating` and `calories (#)` is dependent to `rating`. 
 
 <iframe
   src="assets/dependent_missingness_graph.html"
@@ -126,9 +113,7 @@ Without this external, unobserved information, it is reasonable to conclude that
   frameborder="0"
 ></iframe>
 
-The missingness permutation tests were conducted to evaluate whether the missingness of the `rating` column is dependent on specific features of the dataset, such as `sodium (PDV)` and `calories (#)`.
-
-For **calories (#)**, the observed test statistic (absolute difference in means between missing and non-missing groups) was **53.83**. A permutation test was performed by randomly shuffling the `missing_indicator` labels 1,000 times to create a null distribution of test statistics, assuming no relationship between `rating` missingness and `calories (#)`. The resulting p-value was **0.0**, indicating that none of the permuted test statistics were as extreme as the observed statistic. This provides strong evidence to reject the null hypothesis, supporting the conclusion that the missingness of `rating` is **dependent** on `calories (#)`.
+For **calories (#)**, the observed test statistic that I picked was the absolute difference in means between missing and non-missing groups which evaluted to **53.83**. A permutation test was performed by randomly shuffling the `missing_indicator` labels 1,000 times to create a null distribution of test statistics, assuming no relationship between `rating` missingness and `calories (#)`. The resulting p-value was **0.0**, indicating that none of the permuted test statistics were as extreme as the observed statistic. This provides strong evidence to reject the null hypothesis, supporting the conclusion that the missingness of `rating` is **dependent** on `calories (#)`. The histogram proves this relationship as it shows the distribution of permuted test statistics under the null hypothesis, centered around zero, with the observed statistic (red dashed line) falling far outside the range of the null distribution. In contrast, the histogram for `sodium (PDV)` displays the observed statistic within the range of the permuted test statistics, consistent with the null hypothesis of independence.
 
 <iframe
   src="assets/independent_missingness_graph.html"
@@ -137,15 +122,13 @@ For **calories (#)**, the observed test statistic (absolute difference in means 
   frameborder="0"
 ></iframe>
 
-For **sodium (PDV)**, the observed test statistic was **1.44**, and the p-value was **0.502**, indicating that the observed difference in means between the missing and non-missing groups is consistent with the null hypothesis. The histogram of permuted test statistics showed that the observed statistic lies near the center of the null distribution, further supporting the conclusion that the missingness of `rating` is **independent** of `sodium (PDV)`.
-
-These findings were visualized using density plots. For `calories (#)`, the histogram shows the distribution of permuted test statistics under the null hypothesis, centered around zero, with the observed statistic (red dashed line) falling far outside the range of the null distribution. In contrast, the histogram for `sodium (PDV)` displays the observed statistic within the range of the permuted test statistics, consistent with the null hypothesis of independence.
-
-In conclusion, the missingness of `rating` is **dependent** on `calories (#)` but appears to be **independent** of `sodium (PDV)`. These results suggest that calorie levels may influence whether a rating is missing, while sodium levels do not. This dependency should be considered when analyzing the data further, particularly for features like calories that could introduce bias or impact downstream analysis.
+For **sodium (PDV)**, the observed test statistic was **1.44**, and the p-value was **0.502**, indicating that the observed difference in means between the missing and non-missing groups is consistent with the null hypothesis. The histogram of permuted test statistics showed that the observed statistic lies near the center of the null distribution, further supporting the conclusion that the missingness of `rating` is **independent** of `sodium (PDV)`. These results suggest that calorie levels may influence whether a rating is missing, while sodium levels do not.
 
 ## Hypothesis Testing
 
 <hr>
+
+
 
 The calories-related permutation test graph provides valuable insight into the relationship between the missingness of `rating` and the feature `calories (#)`. The **histogram** (represented by blue bars) shows the distribution of permuted test statistics, specifically the absolute differences in means for `calories (#)` between recipes with missing and non-missing `rating` values. This distribution represents the null hypothesis, assuming that there is **no relationship** between the missingness of `rating` and `calories (#)`.
 
