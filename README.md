@@ -128,7 +128,12 @@ For **sodium (PDV)**, the observed test statistic was **1.44**, and the p-value 
 
 <hr>
 
-
+<iframe
+  src="assets/hypothesis_testing_graph.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 The calories-related permutation test graph provides valuable insight into the relationship between the missingness of `rating` and the feature `calories (#)`. The **histogram** (represented by blue bars) shows the distribution of permuted test statistics, specifically the absolute differences in means for `calories (#)` between recipes with missing and non-missing `rating` values. This distribution represents the null hypothesis, assuming that there is **no relationship** between the missingness of `rating` and `calories (#)`.
 
