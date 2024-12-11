@@ -119,9 +119,23 @@ Without this external, unobserved information, it is reasonable to conclude that
 
 ### &#8594; Missingness Dependency:
 
+<iframe
+  src="assets/independent_missingness_grah.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 The missingness permutation tests were conducted to evaluate whether the missingness of the `rating` column is dependent on specific features of the dataset, such as `sodium (PDV)` and `calories (#)`.
 
 For **calories (#)**, the observed test statistic (absolute difference in means between missing and non-missing groups) was **53.83**. A permutation test was performed by randomly shuffling the `missing_indicator` labels 1,000 times to create a null distribution of test statistics, assuming no relationship between `rating` missingness and `calories (#)`. The resulting p-value was **0.0**, indicating that none of the permuted test statistics were as extreme as the observed statistic. This provides strong evidence to reject the null hypothesis, supporting the conclusion that the missingness of `rating` is **dependent** on `calories (#)`.
+
+<iframe
+  src="assets/dependent_missingness_grah.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 For **sodium (PDV)**, the observed test statistic was **1.44**, and the p-value was **0.502**, indicating that the observed difference in means between the missing and non-missing groups is consistent with the null hypothesis. The histogram of permuted test statistics showed that the observed statistic lies near the center of the null distribution, further supporting the conclusion that the missingness of `rating` is **independent** of `sodium (PDV)`.
 
