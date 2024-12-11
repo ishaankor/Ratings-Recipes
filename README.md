@@ -119,8 +119,6 @@ Without this external, unobserved information, it is reasonable to conclude that
 
 ### &#8594; Missingness Dependency:
 
-### **Results and Interpretation of Missingness Permutation Tests**
-
 The missingness permutation tests were conducted to evaluate whether the missingness of the `rating` column is dependent on specific features of the dataset, such as `sodium (PDV)` and `calories (#)`.
 
 For **calories (#)**, the observed test statistic (absolute difference in means between missing and non-missing groups) was **53.83**. A permutation test was performed by randomly shuffling the `missing_indicator` labels 1,000 times to create a null distribution of test statistics, assuming no relationship between `rating` missingness and `calories (#)`. The resulting p-value was **0.0**, indicating that none of the permuted test statistics were as extreme as the observed statistic. This provides strong evidence to reject the null hypothesis, supporting the conclusion that the missingness of `rating` is **dependent** on `calories (#)`.
@@ -134,6 +132,14 @@ In conclusion, the missingness of `rating` is **dependent** on `calories (#)` bu
 ## Hypothesis Testing
 
 <hr>
+
+The calories-related permutation test graph provides valuable insight into the relationship between the missingness of `rating` and the feature `calories (#)`. The **histogram** (represented by blue bars) shows the distribution of permuted test statistics, specifically the absolute differences in means for `calories (#)` between recipes with missing and non-missing `rating` values. This distribution represents the null hypothesis, assuming that there is **no relationship** between the missingness of `rating` and `calories (#)`.
+
+The **observed test statistic**, represented by the red dashed line, is **53.83**, which lies far outside the range of the permuted distribution. This indicates that the observed difference in means is **significantly larger** than what would be expected under the null hypothesis, suggesting a strong deviation from the assumption of independence.
+
+The corresponding **p-value** is reported as **0.0**, meaning that **none** of the permuted test statistics were as extreme as the observed statistic. This provides **strong evidence** to **reject the null hypothesis**, supporting the conclusion that the missingness of `rating` is **dependent** on `calories (#)`.
+
+In **conclusion**, the results suggest that recipes with missing `rating` values **likely have significantly different calorie levels** compared to those with recorded ratings. This finding highlights that **calorie information may influence** whether a recipe’s rating is recorded, emphasizing the importance of accounting for this dependency in any further analysis of the dataset.
 
 ## Framing a Prediction Problem
 
