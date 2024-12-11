@@ -62,8 +62,8 @@ Cleaning up the dataset was pretty straightforward; I filled all the missing val
 ### &#8594; Univariate Analysis:
 
 <iframe
-  src="assets/univariate_graph_1.html"
-  width="600"
+  src="assets/univariate_1_graph.html"
+  width="800"
   height="600"
   frameborder="0"
 ></iframe>
