@@ -67,7 +67,6 @@ Cleaning up the dataset was pretty straightforward; I filled all the missing val
   height="600"
   frameborder="0"
 ></iframe>
-
 To see the distribution of the `minutes` columns, the graph above illustrates the distribution of cooking times measured in minutes. The distribution appears to be right-skewed, with most values concentrated in the lower range, indicating that shorter cooking times are more common. Because it is right-skewed, it suggests that the mean cooking time might be higher than the median. There seems to be a peak around common values which suggests a central tendency, or the average time it takes for meal preparation.  The long tail toward the right highlights a few instances of extremely long cooking times, which could be outliers or special cases like slow-cooked recipes (there's a recipe that takes more than 1 **million** minutes). By understanding this trend, it will be helpful in planning meal preparation or designing recipe categories based on average cooking times.
 
 
